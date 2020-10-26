@@ -37,10 +37,6 @@ def delete_tasks(value):
     except:
         pass
 
-
-radio_choices = ["Top", "Normal", "Low"]
-radio = [[Sg.Radio(text, 1), ] for text in radio_choices]
-
 layout = [
     [
         Sg.Text("Enter the task", font=(font_name, font_size)),
@@ -68,7 +64,7 @@ layout = [
 todolist = []
 radio_choices = ["Top", "Normal", "Low"]
 
-window = Sg.Window("Week1", layout)
+window = Sg.Window("To Do List", layout)
 
 while True:
     event, values = window.Read()
