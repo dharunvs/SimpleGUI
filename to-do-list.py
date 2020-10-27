@@ -11,9 +11,10 @@ def add_task(value):
         if values[0]:
             todolist.insert(0, task+" -Top")
         elif values[1]:
+            todolist.insert(int(len(todolist)/2)+1, task+" -Normal")
+        elif values[2]:
             todolist.insert(len(todolist), task+" -Low")
 
-    print(values[0])
     window.FindElement('task_name').Update(value="")
     window.FindElement('todolist').Update(values=todolist)
     window.FindElement('add_save').Update('Add')
@@ -37,6 +38,14 @@ def delete_tasks(value):
     except:
         pass
 
+def delete_all():
+    try:
+        for i in range(len(todolist)):
+            del todolist[i]
+        window.FindElement("todolist").Update(values=todolist)
+    except:
+        pass
+
 layout = [
     [
         Sg.Text("Enter the task", font=(font_name, font_size)),
@@ -46,13 +55,15 @@ layout = [
     [
         Sg.Text("Priority      ", font=(font_name, font_size)),
         Sg.Radio("Top", 1),
-        Sg.Radio("Low", 1, default=True)
+        Sg.Radio("Normal", 1, default=True),
+        Sg.Radio("Low", 1)
     ],
 
     [
         Sg.Button("Add", font=(font_name, font_size), border_width=0, key="add_save"),
         Sg.Button("Edit", font=(font_name, font_size), border_width=0),
         Sg.Button("Delete", font=(font_name, font_size), border_width=0),
+        Sg.Button("Delete All", font=(font_name, font_size), border_width=0)
     ],
 
     [
@@ -62,7 +73,6 @@ layout = [
 ]
 
 todolist = []
-radio_choices = ["Top", "Normal", "Low"]
 
 window = Sg.Window("To Do List", layout)
 
@@ -74,6 +84,8 @@ while True:
         edit_tasks(values)
     elif event == 'Delete':
         delete_tasks(values)
+    elif event == "Delete All":
+        delete_all()
     else:
         break
 
