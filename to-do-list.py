@@ -9,20 +9,20 @@ def add_task(value):
     task = value['task_name']
     if task != "":
         if values[0]:
-            todolist.insert(0, task+" -Top")
+            to_do_list.insert(0, task+" -Top")
         elif values[1]:
-            todolist.insert(int(len(todolist)/2)+1, task+" -Normal")
+            to_do_list.insert(int(len(to_do_list)/2)+1, task+" -Normal")
         elif values[2]:
-            todolist.insert(len(todolist), task+" -Low")
+            to_do_list.insert(len(to_do_list), task+" -Low")
 
     window.FindElement('task_name').Update(value="")
-    window.FindElement('todolist').Update(values=todolist)
+    window.FindElement('to_do_list').Update(values=to_do_list)
     window.FindElement('add_save').Update('Add')
 
 
 def edit_tasks(value):
     try:
-        edit_val = value['todolist'][0]
+        edit_val = value['to_do_list'][0]
         window.FindElement('task_name').Update(value=edit_val)
         todolist.remove(edit_val)
         window.FindElement('add_save').Update('Save')
@@ -32,17 +32,17 @@ def edit_tasks(value):
 
 def delete_tasks(value):
     try:
-        delete_val = value['todolist'][0]
+        delete_val = value['to_do_list'][0]
         todolist.remove(delete_val)
-        window.FindElement('todolist').Update(values=todolist)
+        window.FindElement('to_do_list').Update(values=to_do_list)
     except:
         pass
 
 def delete_all():
     try:
-        for i in range(len(todolist)):
-            del todolist[i]
-        window.FindElement("todolist").Update(values=todolist)
+        for i in range(len(to_do_list)):
+            del to_do_list[i]
+        window.FindElement("to_do_list").Update(values=to_do_list)
     except:
         pass
 
@@ -67,12 +67,12 @@ layout = [
     ],
 
     [
-        Sg.Listbox(values=[], size=(40, 10), font=(font_name, font_size), key='todolist')
+        Sg.Listbox(values=[], size=(40, 10), font=(font_name, font_size), key='to_do_list')
     ]
 
 ]
 
-todolist = []
+to_do_list = []
 
 window = Sg.Window("To Do List", layout)
 
