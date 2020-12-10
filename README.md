@@ -1,2 +1,2 @@
-# SimpleGUI
+# ToDoList
 Pysimple GUI basics
